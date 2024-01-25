@@ -28,4 +28,6 @@ result = collection.find({"ts": {"$gt": datetime.fromisoformat(
     '2024-01-24T18:20:21.764+00:00')}}, fields_to_include)
 st.line_chart(result, x="ts", y=["minimumFee", "fastestFee"])
 
+st.write("wow")
+
 mongo_client.close()
