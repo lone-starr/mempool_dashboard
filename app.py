@@ -23,11 +23,10 @@ st.line_chart(result, x="ts", y=["count", "hashrate"])
 
 st.write("Fastest and Minimum fees over time")
 
-fields_to_include = {"_id": 0, "ts": 1, "minimumFee": 1, "fastestFee": 1}
+fields_to_include = {"_id": 0, "ts": 1,
+                     "minimumFee": 1, "fastestFee": 1, "hourFee": 1}
 result = collection.find({"ts": {"$gt": datetime.fromisoformat(
     '2024-01-24T18:20:21.764+00:00')}}, fields_to_include)
-st.line_chart(result, x="ts", y=["minimumFee", "fastestFee"])
-
-st.write("wow")
+st.line_chart(result, x="ts", y=["minimumFee", "fastestFee", "hourFee"])
 
 mongo_client.close()
