@@ -25,7 +25,7 @@ In VS Code press < Ctrl >< Shift >< p >, type Python and choose 'Python: Select 
 
 
 ## Install Dependencies
-Use the following command to install the required dependencies:
+Open a new Terminal in VS Code and use the following command to install the required dependencies. Your Python venv should be indicated in your terminal shell.
 ```bash
 pip install -r requirements.txt
 ```
