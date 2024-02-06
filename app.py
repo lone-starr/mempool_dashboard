@@ -45,4 +45,20 @@ result = collection.find({"ts": {"$gt": datetime.fromisoformat(
 
 st.line_chart(result, x="time", y=["min fee", "fast fee", "hour fee"])
 
+st.write("Bitcoin price in major currencies")
+
+result = collection.find({"ts": {"$gte": datetime.fromisoformat(
+    '2024-02-05T22:29:27.182+00:00')}},   {
+    "_id": 0,
+    "time": {
+        "$dateAdd": {
+            "startDate": "$ts",
+            "unit": "hour",
+            "amount": -5
+        }
+    }, "USD": "$priceUSD", "EUR": "$priceEUR", "GBP": "$priceGBP", "CAD": "$priceCAD"
+})
+
+st.line_chart(result, x="time", y=["USD", "EUR", "GBP", "CAD"])
+
 mongo_client.close()
