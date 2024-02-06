@@ -45,7 +45,7 @@ result = collection.find({"ts": {"$gt": datetime.fromisoformat(
 
 st.line_chart(result, x="time", y=["min fee", "fast fee", "hour fee"])
 
-st.write("Bitcoin price in major currencies")
+st.write("Bitcoin conversion rate in major currencies")
 
 result = collection.find({"ts": {"$gte": datetime.fromisoformat(
     '2024-02-05T22:29:27.182+00:00')}},   {
