@@ -29,7 +29,7 @@ result = collection.find({"ts": {"$gt": datetime.fromisoformat(
     "mempool size": {"$divide": ["$vsize", 1000]}, "tx count": "$count", "vsize": 1, "hashrate": 1
 })
 st.line_chart(result, x="time", y=["tx count", "mempool size", "hashrate"])
-
+st.divider()
 # Fee chart
 st.write("Fastest and Minimum fees over time")
 result = collection.find({"ts": {"$gt": datetime.fromisoformat(
@@ -44,7 +44,7 @@ result = collection.find({"ts": {"$gt": datetime.fromisoformat(
     }, "min fee": "$minimumFee", "fast fee": "$fastestFee", "hour fee": "$hourFee"
 })
 st.line_chart(result, x="time", y=["min fee", "fast fee", "hour fee"])
-
+st.divider()
 # Price chart
 st.write("Bitcoin conversion rate in major currencies")
 result = collection.find({"ts": {"$gte": datetime.fromisoformat(
