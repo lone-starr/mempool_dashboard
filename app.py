@@ -71,6 +71,6 @@ result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
         }
     }, "USD": "$priceUSD", "EUR": "$priceEUR", "GBP": "$priceGBP", "CAD": "$priceCAD"
 })
-st.line_chart(result, x="time", y=["USD", "EUR", "GBP", "CAD"])
+st.line_chart(result, x="time", y=["USD"])
 
 mongo_client.close()
