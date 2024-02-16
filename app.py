@@ -3,7 +3,7 @@ import streamlit as st
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 load_dotenv(".env")
 
@@ -11,14 +11,29 @@ MONGO_URI = os.environ.get('MONGO_URI')
 
 st.title("Bitcoin Mempool Dashboard")
 
+range = st.selectbox(
+    'Pick the time period. Data frequency is approx. 5 minute polling intervals', ('24 hour', '3 day', '7 day', '14 day', '28 day', 'full history'))
+
+# default to 24 hour time period
+delta = timedelta(hours=24)
+if range == '3 day':
+    delta = timedelta(days=3)
+elif range == '7 day':
+    delta = timedelta(days=7)
+elif range == '14 day':
+    delta = timedelta(days=14)
+elif range == '28 day':
+    delta = timedelta(days=28)
+elif range == 'full history':
+    delta = timedelta(weeks=26)
+
 mongo_client = MongoClient(MONGO_URI)
 db = mongo_client['mempool']
 collection = db['blockheight']
 
 # Mempool / Hashrate chart
 st.write("Mempool Transaction Count and Hash Rate over time")
-result = collection.find({"ts": {"$gt": datetime.fromisoformat(
-    '2024-01-24T18:20:21.764+00:00')}},   {
+result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
     "_id": 0,
     "time": {
         "$dateAdd": {
@@ -32,8 +47,7 @@ st.line_chart(result, x="time", y=["tx count", "mempool size", "hashrate"])
 st.divider()
 # Fee chart
 st.write("Fastest and Minimum fees over time")
-result = collection.find({"ts": {"$gt": datetime.fromisoformat(
-    '2024-01-24T18:20:21.764+00:00')}},   {
+result = collection.find({"ts": {"$gt": datetime.now() - delta}},   {
     "_id": 0,
     "time": {
         "$dateAdd": {
@@ -47,8 +61,7 @@ st.line_chart(result, x="time", y=["min fee", "fast fee", "hour fee"])
 st.divider()
 # Price chart
 st.write("Bitcoin conversion rate in major currencies")
-result = collection.find({"ts": {"$gte": datetime.fromisoformat(
-    '2024-02-05T22:29:27.182+00:00')}},   {
+result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
     "_id": 0,
     "time": {
         "$dateAdd": {
