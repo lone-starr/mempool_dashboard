@@ -36,5 +36,5 @@ Create a .env file with the necessary credentials and API keys for your MongoDB 
 ## Run locally
 Run the Streamlit App:
 ```bash
-streamlit run Home.py
+streamlit run app.py
 ```
