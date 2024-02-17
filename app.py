@@ -18,7 +18,7 @@ collection = db['blockheight']
 result = collection.find_one(sort=[('ts', -1)])
 st.write(
     f"Bitcoin Price: ${format(result.get('priceUSD'), ',')}",
-    "&nbsp;&nbsp;&nbsp;&nbsp;", f"Hashrate: {format(int(result.get('hashrate')/1000), ',')}&nbsp;EH/s")
+    "&nbsp;&nbsp;&nbsp;&nbsp;", f"Network Hashrate: {format(int(result.get('hashrate')/1000), ',')}&nbsp;EH/s")
 
 range = st.selectbox(
     'Pick the time period. Data frequency is approx. 5 minute polling intervals', ('24 hour', '3 day', '7 day', '14 day', '28 day', 'full history'))
