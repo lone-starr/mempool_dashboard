@@ -11,6 +11,15 @@ MONGO_URI = os.environ.get('MONGO_URI')
 
 st.title("Bitcoin Mempool Dashboard")
 
+mongo_client = MongoClient(MONGO_URI)
+db = mongo_client['mempool']
+collection = db['blockheight']
+
+result = collection.find_one(sort=[('ts', -1)])
+st.write(
+    f"Bitcoin Price: ${format(result.get('priceUSD'), ',')}",
+    "&nbsp;&nbsp;&nbsp;&nbsp;", f"Hashrate: {format(int(result.get('hashrate')/1000), ',')}&nbsp;EH/s")
+
 range = st.selectbox(
     'Pick the time period. Data frequency is approx. 5 minute polling intervals', ('24 hour', '3 day', '7 day', '14 day', '28 day', 'full history'))
 
@@ -26,10 +35,6 @@ elif range == '28 day':
     delta = timedelta(days=28)
 elif range == 'full history':
     delta = timedelta(weeks=26)
-
-mongo_client = MongoClient(MONGO_URI)
-db = mongo_client['mempool']
-collection = db['blockheight']
 
 # Mempool / Hashrate chart
 st.write("Mempool Transaction Count and Hash Rate over time")
