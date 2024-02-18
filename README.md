@@ -13,7 +13,7 @@ cd mempool_dashboard
 
 ## Create a fresh Python virtual environment
 ```bash
-python3 -m venv ./venv
+python3 -m venv .
 ```
 
 ## Select Python interpretor (Visual Studio Code)
