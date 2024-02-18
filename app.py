@@ -16,9 +16,12 @@ db = mongo_client['mempool']
 collection = db['blockheight']
 
 result = collection.find_one(sort=[('ts', -1)])
+st.write(f"Bitcoin Price: ${format(result.get('priceUSD'), ',')}")
 st.write(
-    f"Bitcoin Price: ${format(result.get('priceUSD'), ',')}",
-    "&nbsp;&nbsp;&nbsp;&nbsp;", f"Network Hashrate: {format(int(result.get('hashrate')/1000), ',')}&nbsp;EH/s")
+    f"Network Hashrate: {format(int(result.get('hashrate')/1000), ',')}&nbsp;EH/s")
+st.write(f"Fastest Fee: {result.get('fastestFee')}&nbsp;sat/vB")
+st.write(f"Hour Fee: {result.get('hourFee')}&nbsp;sat/vB")
+st.write(f"Min Fee: {result.get('minimumFee')}&nbsp;sat/vB")
 
 range = st.selectbox(
     'Pick the time period. Data frequency is approx. 5 minute polling intervals', ('24 hour', '3 day', '7 day', '14 day', '28 day', 'full history'))
