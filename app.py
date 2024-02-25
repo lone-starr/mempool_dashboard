@@ -23,7 +23,7 @@ st.write(f"Fastest Fee: {result.get('fastestFee')}&nbsp;sat/vB")
 st.write(f"Hour Fee: {result.get('hourFee')}&nbsp;sat/vB")
 st.write(f"Min Fee: {result.get('minimumFee')}&nbsp;sat/vB")
 
-asOfDate = result.get('ts').strftime("%Y-%m-%d %H:%M")
+asOfDate = result.get('ts').strftime("%m-%d-%Y %I:%M %p")
 st.write(f"As of {asOfDate} UTC")
 
 range = st.selectbox(
