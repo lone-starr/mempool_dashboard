@@ -23,8 +23,8 @@ st.write(f"Fastest Fee: {result.get('fastestFee')}&nbsp;sat/vB")
 st.write(f"Hour Fee: {result.get('hourFee')}&nbsp;sat/vB")
 st.write(f"Min Fee: {result.get('minimumFee')}&nbsp;sat/vB")
 
-asOfDate = result.get('ts')
-st.write(f"As of {asOfDate.strftime("%Y-%m-%d %H:%M:%S")} UTC")
+asOfDate = result.get('ts').strftime("%Y-%m-%d %H:%M")
+st.write(f"As of {asOfDate} UTC")
 
 range = st.selectbox(
     'Pick the time period. Data frequency is approx. 5 minute polling intervals', ('24 hour', '3 day', '7 day', '14 day', '28 day', 'full history'))
