@@ -80,8 +80,9 @@ result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
             "unit": "hour",
             "amount": -5
         }
-    }, "USD": "$priceUSD", "EUR": "$priceEUR", "GBP": "$priceGBP", "CAD": "$priceCAD"
+    }, "USD": "$priceUSD"
 })
-st.line_chart(result, x="time", y=["USD", "EUR", "GBP", "CAD"])
+# st.line_chart(result, x="time", y=["USD", "EUR", "GBP", "CAD"])
+st.line_chart(result, x="time", y=["USD"])
 
 mongo_client.close()
