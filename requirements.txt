@@ -1,3 +1,5 @@
 python-dotenv
 pymongo
 streamlit
+altair
+pandas

@@ -1,6 +1,8 @@
+import altair as alt
 import os
 import streamlit as st
 from pymongo import MongoClient
+from pandas import DataFrame
 from dotenv import load_dotenv
 import json
 from datetime import datetime, timedelta
@@ -82,7 +84,11 @@ result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
         }
     }, "USD": "$priceUSD"
 })
-# st.line_chart(result, x="time", y=["USD", "EUR", "GBP", "CAD"])
-st.line_chart(result, x="time", y=["USD"])
+# st.line_chart(result, x="time", y=["USD"])
+resultDF = DataFrame(result)
+altair_chart = alt.Chart(resultDF).mark_line(
+    interpolate='step-after').encode(x=alt.X('time'), y=alt.Y('USD', scale=alt.Scale(domain=[50000, 65000])))
+
+st.altair_chart(altair_chart, use_container_width=True)
 
 mongo_client.close()
