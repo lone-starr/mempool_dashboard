@@ -73,7 +73,7 @@ result = collection.find({"ts": {"$gt": datetime.now() - delta}},   {
 st.line_chart(result, x="time", y=["min fee", "fast fee", "hour fee"])
 st.divider()
 # Price chart
-st.write("Bitcoin conversion rate in major currencies")
+st.write("Bitcoin conversion rate in USD")
 result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
     "_id": 0,
     "time": {
