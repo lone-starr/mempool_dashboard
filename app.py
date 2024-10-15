@@ -87,7 +87,7 @@ result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
 # st.line_chart(result, x="time", y=["USD"])
 resultDF = DataFrame(result)
 altair_chart = alt.Chart(resultDF).mark_line(
-    interpolate='step-after').encode(x=alt.X('time'), y=alt.Y('USD', scale=alt.Scale(domain=[60000, 65000])))
+    interpolate='step-after').encode(x=alt.X('time'), y=alt.Y('USD', scale=alt.Scale(domain=[65000, 70000])))
 
 st.altair_chart(altair_chart, use_container_width=True)
 
