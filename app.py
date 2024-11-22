@@ -45,20 +45,6 @@ elif range == '28 day':
 elif range == 'full history':
     delta = timedelta(weeks=99)
 
-# Mempool / Hashrate chart
-st.write("Mempool Transaction Count and Hash Rate over time")
-result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
-    "_id": 0,
-    "time": {
-        "$dateAdd": {
-            "startDate": "$ts",
-            "unit": "hour",
-            "amount": -5
-        }},
-    "mempool size": {"$divide": ["$vsize", 1000]}, "tx count": "$count", "vsize": 1, "hashrate": 1
-})
-st.line_chart(result, x="time", y=["tx count", "mempool size", "hashrate"])
-st.divider()
 # Fee chart
 st.write("Fastest and Minimum fees over time")
 result = collection.find({"ts": {"$gt": datetime.now() - delta}},   {
@@ -91,5 +77,19 @@ altair_chart = alt.Chart(resultDF).mark_line(
     interpolate='step-after').encode(x=alt.X('time'), y=alt.Y('USD', scale=alt.Scale(domain=[50000, 100000])))
 
 st.altair_chart(altair_chart, use_container_width=True)
+st.divider()
+# Mempool / Hashrate chart
+st.write("Mempool Transaction Count and Hash Rate over time")
+result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
+    "_id": 0,
+    "time": {
+        "$dateAdd": {
+            "startDate": "$ts",
+            "unit": "hour",
+            "amount": -5
+        }},
+    "mempool size": {"$divide": ["$vsize", 1000]}, "tx count": "$count", "vsize": 1, "hashrate": 1
+})
+st.line_chart(result, x="time", y=["tx count", "mempool size", "hashrate"])
 
 mongo_client.close()
