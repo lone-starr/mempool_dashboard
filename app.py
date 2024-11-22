@@ -58,7 +58,7 @@ result = collection.find({"ts": {"$gt": datetime.now() - delta}},   {
     }, "min fee": "$minimumFee", "fast fee": "$fastestFee", "hour fee": "$hourFee"
 })
 st.line_chart(result, x="time", y=["min fee", "fast fee", "hour fee"])
-st.divider()
+# st.divider()
 # Price chart
 st.write("Bitcoin conversion rate in USD")
 result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
@@ -77,7 +77,7 @@ altair_chart = alt.Chart(resultDF).mark_line(
     interpolate='step-after').encode(x=alt.X('time'), y=alt.Y('USD', scale=alt.Scale(domain=[50000, 100000])))
 
 st.altair_chart(altair_chart, use_container_width=True)
-st.divider()
+# st.divider()
 # Mempool / Hashrate chart
 st.write("Mempool Transaction Count and Hash Rate over time")
 result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
