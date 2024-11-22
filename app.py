@@ -43,7 +43,7 @@ elif range == '14 day':
 elif range == '28 day':
     delta = timedelta(days=28)
 elif range == 'full history':
-    delta = timedelta(weeks=26)
+    delta = timedelta(weeks=99)
 
 # Mempool / Hashrate chart
 st.write("Mempool Transaction Count and Hash Rate over time")
