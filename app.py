@@ -18,6 +18,7 @@ db = mongo_client['mempool']
 collection = db['blockheight']
 
 result = collection.find_one(sort=[('ts', -1)])
+st.write(f"Current Block: {result.get('height')}")
 st.write(f"Bitcoin Price: ${format(result.get('priceUSD'), ',')}")
 st.write(
     f"Network Hashrate: {format(int(result.get('hashrate')/1000), ',')}&nbsp;EH/s")
