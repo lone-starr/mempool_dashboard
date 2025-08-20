@@ -25,6 +25,7 @@ st.write(
 st.write(f"Fastest Fee: {result.get('fastestFee')}&nbsp;sat/vB")
 st.write(f"Hour Fee: {result.get('hourFee')}&nbsp;sat/vB")
 st.write(f"Min Fee: {result.get('minimumFee')}&nbsp;sat/vB")
+st.write(f"Difficulty: {result.get('diff')}&nbsp;")
 
 asOfDate = result.get('ts').strftime("%B %d, %Y %I:%M %p")
 st.write(f"As of {asOfDate} UTC")
