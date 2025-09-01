@@ -100,3 +100,7 @@ result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
 st.line_chart(result, x="time", y=["tx count", "mempool size", "hashrate"])
 
 mongo_client.close()
+
+st.markdown("---")
+st.markdown(
+    "Built by [lone-starr](https://github.com/lone-starr) • View source on [GitHub](https://github.com/lone-starr/mempool_dashboard)")
