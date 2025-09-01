@@ -12,12 +12,12 @@ load_dotenv(".env")
 MONGO_URI = os.environ.get('MONGO_URI')
 
 st.set_page_config(
-    page_title="Bitcoin Mempool Dashboard",
+    page_title="Bitcoin Network Statistics",
     page_icon="₿",
     layout="centered",
 )
 
-st.title("Bitcoin Mempool Dashboard")
+st.title("Bitcoin Network Statistics")
 
 mongo_client = MongoClient(MONGO_URI)
 db = mongo_client['mempool']
