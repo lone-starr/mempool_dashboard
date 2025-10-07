@@ -37,7 +37,7 @@ asOfDate = result.get('ts').strftime("%B %d, %Y %I:%M %p")
 st.write(f"As of {asOfDate} UTC")
 
 range = st.selectbox(
-    'Pick the time period. Data frequency is approx. 5 minute polling intervals', ('24 hour', '3 day', '7 day', '14 day', '28 day', 'full history'))
+    'Pick the time period. Data frequency is approx. 5 minute polling intervals', ('24 hour', '3 day', '7 day', '14 day', '28 day'))
 
 # default to 24 hour time period
 delta = timedelta(hours=24)
@@ -49,8 +49,8 @@ elif range == '14 day':
     delta = timedelta(days=14)
 elif range == '28 day':
     delta = timedelta(days=28)
-elif range == 'full history':
-    delta = timedelta(weeks=99)
+# elif range == 'full history':
+#     delta = timedelta(weeks=99)
 
 # Fee chart
 st.write("Fastest and Minimum fees over time")
@@ -81,12 +81,12 @@ result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
 # st.line_chart(result, x="time", y=["USD"])
 resultDF = DataFrame(result)
 altair_chart = alt.Chart(resultDF).mark_line(
-    interpolate='step-after').encode(x=alt.X('time'), y=alt.Y('USD', scale=alt.Scale(domain=[90000, 120000])))
+    interpolate='step-after').encode(x=alt.X('time'), y=alt.Y('USD', scale=alt.Scale(domain=[100000, 150000])))
 
 st.altair_chart(altair_chart, use_container_width=True)
 # st.divider()
-# Mempool / Hashrate chart
-st.write("Mempool Transaction Count and Hash Rate over time")
+# Hashrate chart
+st.write("Hash Rate over time")
 result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
     "_id": 0,
     "time": {
@@ -95,9 +95,28 @@ result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
             "unit": "hour",
             "amount": -5
         }},
-    "mempool size": {"$divide": ["$vsize", 1000]}, "tx count": "$count", "vsize": 1, "hashrate": 1
+    "hashrate": "$hashrate"
 })
-st.line_chart(result, x="time", y=["tx count", "mempool size", "hashrate"])
+# st.line_chart(result, x="time", y=["hashrate"])
+resultDF = DataFrame(result)
+altair_chart = alt.Chart(resultDF).mark_line(
+    interpolate='step-after').encode(x=alt.X('time'), y=alt.Y('hashrate', scale=alt.Scale(domain=[500000, 1250000])))
+
+st.altair_chart(altair_chart, use_container_width=True)
+
+# Mempool / Hashrate chart
+st.write("Mempool Transaction Count and Size over time")
+result = collection.find({"ts": {"$gte": datetime.now() - delta}},   {
+    "_id": 0,
+    "time": {
+        "$dateAdd": {
+            "startDate": "$ts",
+            "unit": "hour",
+            "amount": -5
+        }},
+    "mempool size": {"$divide": ["$vsize", 1000]}, "tx count": "$count", "vsize": 1
+})
+st.line_chart(result, x="time", y=["tx count", "mempool size"])
 
 mongo_client.close()
 
