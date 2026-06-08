@@ -53,7 +53,7 @@ elif range == '28 day':
 #     delta = timedelta(weeks=99)
 
 # Fee chart
-st.write("Fastest and Minimum fees over time")
+st.write("Fastest and Minimum fees")
 result = collection.find({"ts": {"$gt": datetime.now() - delta}},   {
     "_id": 0,
     "time": {
