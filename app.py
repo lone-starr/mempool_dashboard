@@ -37,7 +37,7 @@ asOfDate = result.get('ts').strftime("%B %d, %Y %I:%M %p")
 st.write(f"As of {asOfDate} UTC")
 
 range = st.selectbox(
-    'Pick the time period. Data frequency is approx. 5 minute polling intervals', ('24 hour', '3 day', '7 day', '14 day', '28 day'))
+    'Pick the time period. Data frequency is approx. 10 minute polling intervals', ('24 hour', '3 day', '7 day', '14 day', '28 day'))
 
 # default to 24 hour time period
 delta = timedelta(hours=24)
