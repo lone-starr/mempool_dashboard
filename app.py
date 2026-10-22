@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 load_dotenv(".env")
 
 MONGO_URI = os.environ.get('MONGO_URI')
-
+# force redeploy from Railway outage
 st.set_page_config(
     page_title="Bitcoin Network Statistics",
     page_icon="₿",
