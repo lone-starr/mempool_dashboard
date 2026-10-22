@@ -49,8 +49,6 @@ elif range == '14 day':
     delta = timedelta(days=14)
 elif range == '28 day':
     delta = timedelta(days=28)
-# elif range == 'full history':
-#     delta = timedelta(weeks=99)
 
 # Fee chart
 st.write("Fastest and Minimum fees")
